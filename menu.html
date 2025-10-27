@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>منوی کافه دوخ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Vazirmatn', sans-serif;
+      background: linear-gradient(135deg, #f8f3ec 0%, #f0e6d9 100%);
+      color: #3b2f2f;
+      overflow-x: hidden;
+    }
+
+    /* ===== هدر ===== */
+    header {
+      text-align: center;
+      background: transparent;
+      padding: 50px 20px 30px;
+      position: relative;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      background: linear-gradient(45deg, #4b3621, #d7b899);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 6px rgba(75, 54, 33, 0.3);
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    header h1:hover {
+      transform: scale(1.05);
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #4b3621;
+      opacity: 0.85;
+      animation: fadeIn 1.5s ease-out 0.5s forwards;
+      opacity: 0;
+    }
+
+    /* ===== تب‌ها ===== */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      background: #f2e6d9;
+      border-bottom: 2px solid #d7b899;
+      padding: 10px 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab {
+      padding: 12px 25px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #4b3621;
+      border-radius: 12px;
+      margin: 5px;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tab::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(215, 184, 153, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    .tab:hover::before {
+      left: 100%;
+    }
+
+    .tab:hover {
+      background: #e9ddcf;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab.active {
+      background: #4b3621;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+
+    /* ===== بخش‌ها ===== */
+    .menu-section {
+      display: none;
+      max-width: 650px;
+      margin: 40px auto;
+      background: #fffaf3;
+      border-radius: 20px;
+      padding: 25px 30px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .menu-section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .menu-section h2 {
+      border-bottom: 2px solid #d7b899;
+      padding-bottom: 10px;
+      color: #4b3621;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 10px;
+      border-bottom: 1px dashed #d9c8a9;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .menu-item:hover {
+      background: #f2e6d9;
+      transform: translateX(5px);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item span.name {
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /*.menu-item span.name::before {*/
+    /*  content: '☕'; !* آیکون پیش‌فرض، برای هر بخش تغییر می‌کند *!*/
+    /*  font-size: 1.2rem;*/
+    /*}*/
+
+    /*#hot .menu-item span.name::before { content: '☕'; }*/
+    /*#cold .menu-item span.name::before { content: '🧊'; }*/
+    /*#breakfast .menu-item span.name::before { content: '🍳'; }*/
+    /*#salad .menu-item span.name::before { content: '🥗'; }*/
+    /*#icecream .menu-item span.name::before { content: '🍦'; }*/
+    /*#cake .menu-item span.name::before { content: '🍰'; }*/
+
+    footer {
+      text-align: center;
+      color: #6a5741;
+      font-size: 0.95rem;
+      padding: 40px 0;
+      opacity: 0.8;
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    /* ===== انیمیشن‌ها ===== */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 0.85;
+      }
+    }
+
+    /* ===== ریسپانسیو ===== */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      .tab {
+        font-size: 0.95rem;
+        padding: 10px 15px;
+        margin: 3px;
+      }
+      .menu-section {
+        margin: 20px 15px;
+        padding: 20px;
+      }
+      .menu-item {
+        padding: 10px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- هدر، تب‌ها، بخش‌ها و فوتر بدون تغییر باقی می‌مانند -->
+<header>
+  <h1>کافه دوخ | Menu</h1>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-tab="hot">بار گرم</div>
+  <div class="tab" data-tab="cold">بار سرد</div>
+  <div class="tab" data-tab="breakfast">صبحانه</div>
+  <div class="tab" data-tab="salad">سالاد</div>
+  <div class="tab" data-tab="icecream">بستنی</div>
+  <div class="tab" data-tab="cake">کیک</div>
+</div>
+
+<section id="hot" class="menu-section active">
+  <h2>☕ بار گرم</h2>
+  <div class="menu-item"><span class="name">اسپرسو سینگل</span><span>—</span></div>
+  <div class="menu-item"><span class="name">اسپرسو دبل</span><span>—</span></div>
+  <div class="menu-item"><span class="name">لاته</span><span>—</span></div>
+  <div class="menu-item"><span class="name">موکا</span><span>—</span></div>
+  <div class="menu-item"><span class="name">ماکیاتو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آمریکانو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">هات چاکلت</span><span>—</span></div>
+  <div class="menu-item"><span class="name">پینک چاکلت</span><span>—</span></div>
+  <div class="menu-item"><span class="name">چای کرک</span><span>—</span></div>
+  <div class="menu-item"><span class="name">چای ماسالا</span><span>—</span></div>
+  <div class="menu-item"><span class="name">کاپوچینو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیر کاکائو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">چای نبات</span><span>—</span></div>
+  <div class="menu-item"><span class="name">چای عسل</span><span>—</span></div>
+  <div class="menu-item"><span class="name">چای سبز</span><span>—</span></div>
+  <div class="menu-item"><span class="name">دمنوش</span><span>—</span></div>
+</section>
+
+<section id="cold" class="menu-section">
+  <h2>🧊 بار سرد</h2>
+  <div class="menu-item"><span class="name">شیک ویژه</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیک لوتوس</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیک نوتلا</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیک وانیل</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیک شکلات</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیک لوتوس</span><span>—</span></div>
+  <div class="menu-item"><span class="name">شیک انبه</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آیس لاته</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آیس کارامل ماکیاتو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آیس آمریکانو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آیس پینک اسپرسو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آفوگاتو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">فراپاچینو</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آیس پک شکلاتی</span><span>—</span></div>
+  <div class="menu-item"><span class="name">آیس پک موز</span><span>—</span></div>
+  <div class="menu-item"><span class="name">تخم شربتی</span><span>—</span></div>
+</section>
+
+<section id="breakfast" class="menu-section">
+  <h2>🍳 صبحانه</h2>
+  <div class="menu-item"><span class="name">ساندویچ مرغ گرم</span><span>—</span></div>
+  <div class="menu-item"><span class="name">ساندویچ مرغ سرد</span><span>—</span></div>
+  <div class="menu-item"><span class="name">اسنک مرغ</span><span>—</span></div>
+  <div class="menu-item"><span class="name">اسنک کالباس</span><span>—</span></div>
+  <div class="menu-item"><span class="name">هات داگ پنیری</span><span>—</span></div>
+  <div class="menu-item"><span class="name">سیب زمینی ظرف کوچک</span><span>—</span></div>
+  <div class="menu-item"><span class="name">سیب زمینی ظرف بزرگ</span><span>—</span></div>
+  <div class="menu-item"><span class="name">پیتزا کامل</span><span>—</span></div>
+  <div class="menu-item"><span class="name">پیتزا کوچک</span><span>—</span></div>
+</section>
+
+<section id="salad" class="menu-section">
+  <h2>🥗 سالاد</h2>
+  <div class="menu-item"><span class="name">سالاد ماکارونی کوچک</span><span>—</span></div>
+  <div class="menu-item"><span class="name">سالاد ماکارونی بزرگ</span><span>—</span></div>
+</section>
+
+<section id="icecream" class="menu-section">
+  <h2>🍦 بستنی</h2>
+  <div class="menu-item"><span class="name">بستنی اسکوپی</span><span>—</span></div>
+</section>
+
+<section id="cake" class="menu-section">
+  <h2>🍰 کیک</h2>
+  <div class="menu-item"><span class="name">کیک اسلایسی</span><span>—</span></div>
+  <div class="menu-item"><span class="name">کوکی نوتلا</span><span>—</span></div>
+</section>
+
+<footer>
+  © 2025 2kh Cafe 🤎
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const sections = document.querySelectorAll('.menu-section');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // غیرفعال کردن تب و بخش فعال
+      tabs.forEach(t => t.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+
+      // فعال کردن تب و بخش جدید
+      tab.classList.add('active');
+      const targetSection = document.getElementById(tab.dataset.tab);
+      targetSection.classList.add('active');
+
+      // انیمیشن برای آیتم‌های منو
+      const items = targetSection.querySelectorAll('.menu-item');
+      items.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(20px)';
+        setTimeout(() => {
+          item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          item.style.opacity = '1';
+          item.style.transform = 'translateX(0)';
+        }, index * 100);
+      });
+    });
+  });
+
+  // انیمیشن اولیه برای بخش فعال
+  document.addEventListener('DOMContentLoaded', () => {
+    const activeSection = document.querySelector('.menu-section.active');
+    const items = activeSection.querySelectorAll('.menu-item');
+    items.forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateX(20px)';
+      setTimeout(() => {
+        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        item.style.opacity = '1';
+        item.style.transform = 'translateX(0)';
+      }, index * 100);
+    });
+  });
+</script>
+
+</body>
+</html>
