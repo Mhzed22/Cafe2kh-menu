@@ -15,7 +15,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== هدر ===== */
     header {
       text-align: center;
       background: transparent;
@@ -105,7 +104,7 @@
       transform: translateY(-2px);
     }
 
-    /* ===== بخش‌ها ===== */
+   
     .menu-section {
       display: none;
       max-width: 650px;
@@ -163,18 +162,6 @@
       gap: 8px;
     }
 
-    /*.menu-item span.name::before {*/
-    /*  content: '☕'; !* آیکون پیش‌فرض، برای هر بخش تغییر می‌کند *!*/
-    /*  font-size: 1.2rem;*/
-    /*}*/
-
-    /*#hot .menu-item span.name::before { content: '☕'; }*/
-    /*#cold .menu-item span.name::before { content: '🧊'; }*/
-    /*#breakfast .menu-item span.name::before { content: '🍳'; }*/
-    /*#salad .menu-item span.name::before { content: '🥗'; }*/
-    /*#icecream .menu-item span.name::before { content: '🍦'; }*/
-    /*#cake .menu-item span.name::before { content: '🍰'; }*/
-
     footer {
       text-align: center;
       color: #6a5741;
@@ -184,7 +171,7 @@
       animation: fadeIn 2s ease-out forwards;
     }
 
-    /* ===== انیمیشن‌ها ===== */
+
     @keyframes fadeInDown {
       from {
         opacity: 0;
@@ -205,7 +192,7 @@
       }
     }
 
-    /* ===== ریسپانسیو ===== */
+
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.5rem;
@@ -227,7 +214,7 @@
 </head>
 <body>
 
-<!-- هدر، تب‌ها، بخش‌ها و فوتر بدون تغییر باقی می‌مانند -->
+
 <header>
   <h1>کافه دوخ | Menu</h1>
 </header>
@@ -324,16 +311,16 @@
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      // غیرفعال کردن تب و بخش فعال
+     
       tabs.forEach(t => t.classList.remove('active'));
       sections.forEach(s => s.classList.remove('active'));
 
-      // فعال کردن تب و بخش جدید
+    
       tab.classList.add('active');
       const targetSection = document.getElementById(tab.dataset.tab);
       targetSection.classList.add('active');
 
-      // انیمیشن برای آیتم‌های منو
+  
       const items = targetSection.querySelectorAll('.menu-item');
       items.forEach((item, index) => {
         item.style.opacity = '0';
@@ -347,7 +334,7 @@
     });
   });
 
-  // انیمیشن اولیه برای بخش فعال
+ 
   document.addEventListener('DOMContentLoaded', () => {
     const activeSection = document.querySelector('.menu-section.active');
     const items = activeSection.querySelectorAll('.menu-item');
